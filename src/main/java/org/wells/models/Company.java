@@ -1,6 +1,8 @@
 package org.wells.models;
 //abhishek360
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -23,6 +25,7 @@ public class Company {
     private IPO ipo;
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "sector_id", referencedColumnName = "sector_id")
+    @JsonIgnore
     private Sector sector;
     @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
     private List<StockPrice> stockPrices;
