@@ -23,27 +23,20 @@ public class Company {
     private String writeUp;
     @OneToOne(mappedBy = "company")
     private IPO ipo;
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "sector_id", referencedColumnName = "sector_id")
     @JsonIgnore
     private Sector sector;
-    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<StockPrice> stockPrices;
 
     public List<StockPrice> getStockPrices() {
         return stockPrices;
     }
 
-    public void setStockPrices(List<StockPrice> stockPrices) {
-        this.stockPrices = stockPrices;
-    }
-
     public Sector getSector() {
         return sector;
-    }
-
-    public void setSector(Sector sector) {
-        this.sector = sector;
     }
 
     public IPO getIpo() {

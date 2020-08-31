@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.wells.models.Sector;
 import org.wells.services.SectorService;
-import org.wells.services.SectorServiceImpl;
 
 import java.util.List;
 import java.util.Map;
@@ -50,8 +49,10 @@ public class SectorController {
         return sectorService.sectorById(id);
     }
 
-    @GetMapping("/sector/price/{id}")
-    public Sector sectorPrices(@PathVariable String id){
-        return sectorService.sectorById(id);
+    @PostMapping("/sector/price/{id}")
+    public Map<String, Object> sectorPrices(@PathVariable String id, @RequestBody Map<String, Object> body){
+        String startDate = body.get("startDate").toString();
+        String endDate = body.get("endDate").toString();
+        return sectorService.sectorCompanyAvgPriceOnAnyExchange(id, startDate, endDate);
     }
 }
