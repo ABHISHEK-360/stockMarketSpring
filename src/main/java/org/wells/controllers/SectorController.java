@@ -5,27 +5,53 @@
 package org.wells.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.wells.models.Sector;
-import org.wells.repositories.SectorRepository;
+import org.wells.services.SectorService;
+import org.wells.services.SectorServiceImpl;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class SectorController {
     @Autowired
-    SectorRepository sectorRepository;
+    SectorService sectorService;
 
-    @GetMapping("/sector")
+    @PostMapping("/sector")
+    public Sector createSector(@RequestBody Map<String, String> body){
+        String sectorName = body.get("name");
+        String sectorBrief = body.get("brief");
+
+        return sectorService.createSector(sectorName, sectorBrief);
+    }
+
+    @PutMapping("/sector/{id}")
+    public Sector updateSector(@PathVariable String id,  @RequestBody Map<String, String> body){
+        String sectorName = body.get("name");
+        String sectorBrief = body.get("brief");
+
+        return sectorService.updateSector(id, sectorName, sectorBrief);
+    }
+
+    @DeleteMapping("/sector/{id}")
+    public boolean deleteSector(@PathVariable String id){
+
+        return sectorService.deleteSector(id);
+    }
+
+    @GetMapping("/sectors")
     public List<Sector> sectors(){
-        return sectorRepository.findAll();
+        return sectorService.getSectors();
     }
 
     @GetMapping("/sector/{id}")
     public Sector sectorCompanies(@PathVariable String id){
-        int sectorId = Integer.parseInt(id);
-        return sectorRepository.findOne(sectorId);
+        return sectorService.sectorById(id);
+    }
+
+    @GetMapping("/sector/price/{id}")
+    public Sector sectorPrices(@PathVariable String id){
+        return sectorService.sectorById(id);
     }
 }
