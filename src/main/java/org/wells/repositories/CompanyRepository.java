@@ -14,7 +14,7 @@ import java.util.Map;
 
 public interface CompanyRepository extends JpaRepository<Company, Integer> {
 
-    @Query("SELECT c.companyName AS CompanyName, c.companyId AS CompanyId, AVG(s.price) AS AveragePrice " +
+    @Query("SELECT c.companyName AS companyName, c.companyId AS companyId, AVG(s.price) AS averagePrice " +
             "FROM Company c JOIN c.stockPrices s JOIN c.sector sec " +
             "WHERE s.date BETWEEN ?1 AND ?2 AND sec.sectorId = ?3 GROUP BY c.companyId")
     List<Map<String, Object>> getStockPriceInDateRange(Date startDate, Date endDate, int sectorId);
