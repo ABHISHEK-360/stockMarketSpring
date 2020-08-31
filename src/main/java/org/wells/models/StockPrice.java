@@ -4,6 +4,8 @@
 
 package org.wells.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
@@ -21,9 +23,11 @@ public class StockPrice {
     private Time time;
     @ManyToOne
     @JoinColumn(name = "company_id", referencedColumnName = "company_id")
+    @JsonIgnore
     private Company company;
     @ManyToOne
     @JoinColumn(name = "exchange_id", referencedColumnName = "exchange_id")
+    @JsonIgnore
     private Exchange exchange;
 
     public int getStockId() {

@@ -1,6 +1,8 @@
 package org.wells.models;
 //abhishek360
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -15,16 +17,13 @@ public class IPO {
     @Column(nullable = false)
     private java.sql.Timestamp openDate;
     private String remarks;
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "ipo_id", referencedColumnName = "company_id")
+    @JsonIgnore
     private Company company;
 
     public Company getCompany() {
         return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
     }
 
     public float getPricePerShare() {
