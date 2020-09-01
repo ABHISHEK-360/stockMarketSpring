@@ -13,6 +13,6 @@ public interface SectorService {
     Sector updateSector(String id, String name, String brief);
     boolean deleteSector(String id);
     List<Sector> getSectors();
-    Sector getCompaniesBySectorId(String id);
+    Map<String, Object> getCompaniesBySectorId(String id);
     Map<String, Object> sectorCompanyAvgPriceOnAnyExchange(String id, String startDate, String endDate);
 }

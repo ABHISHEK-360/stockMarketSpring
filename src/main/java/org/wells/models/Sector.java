@@ -4,6 +4,8 @@
 
 package org.wells.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -17,6 +19,7 @@ public class Sector {
     private String sectorName;
     private String brief;
     @OneToMany(mappedBy = "sector", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Company> companies;
 
     public int getSectorId() {

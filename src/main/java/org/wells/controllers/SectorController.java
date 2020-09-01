@@ -45,7 +45,7 @@ public class SectorController {
     }
 
     @GetMapping("/sector/{id}")
-    public Sector sectorCompanies(@PathVariable String id){
+    public Map<String, Object> sectorCompanies(@PathVariable String id){
         return sectorService.getCompaniesBySectorId(id);
     }
 

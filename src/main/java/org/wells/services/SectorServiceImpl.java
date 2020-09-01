@@ -55,10 +55,15 @@ public class SectorServiceImpl implements SectorService {
     }
 
     @Override
-    public Sector getCompaniesBySectorId(String id) {
+    public Map<String, Object> getCompaniesBySectorId(String id) {
         int sectorId = Integer.parseInt(id);
+        Sector sector = sectorRepository.findOne(sectorId);
+        Map<String, Object> res = new HashMap<>();
+        res.put("sectorId", sector.getSectorId());
+        res.put("sectorName", sector.getSectorName());
+        res.put("companies", sector.getCompanies());
 
-        return sectorRepository.findOne(sectorId);
+        return res;
     }
 
     @Override
@@ -69,9 +74,9 @@ public class SectorServiceImpl implements SectorService {
         Map<String, Object> res = new HashMap<>();
         Sector sector = sectorRepository.findOne(sectorId);
 
-        res.put("SectorId", sector.getSectorId());
-        res.put("SectorName", sector.getSectorName());
-        res.put("Companies", companyRepository.getStockPriceInDateRange(start, end, sectorId));
+        res.put("sectorId", sector.getSectorId());
+        res.put("sectorName", sector.getSectorName());
+        res.put("companies", companyRepository.getStockPriceInDateRange(start, end, sectorId));
         return res;
     }
 }
