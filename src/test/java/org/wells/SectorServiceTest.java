@@ -2,6 +2,10 @@
  * abhishek360
  */
 
+package org.wells;/*
+ * abhishek360
+ */
+
 /*
  * abhishek360
  */
@@ -16,16 +20,14 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.wells.MainApplication;
 import org.wells.models.Sector;
 import org.wells.services.SectorService;
-
 import java.util.List;
 import java.util.Map;
 
 //@ActiveProfiles("test")
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = MainApplication.class)
+@SpringBootTest
 public class SectorServiceTest {
     @Autowired
     SectorService sectorService;
