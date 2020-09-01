@@ -45,8 +45,8 @@ public class SectorController {
     }
 
     @GetMapping("/sector/{id}")
-    public Sector sectorCompanies(@PathVariable String id){
-        return sectorService.sectorById(id);
+    public Map<String, Object> sectorCompanies(@PathVariable String id){
+        return sectorService.getCompaniesBySectorId(id);
     }
 
     @PostMapping("/sector/price/{id}")
