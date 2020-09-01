@@ -55,7 +55,7 @@ public class SectorServiceImpl implements SectorService {
     }
 
     @Override
-    public Sector sectorById(String id) {
+    public Sector getCompaniesBySectorId(String id) {
         int sectorId = Integer.parseInt(id);
 
         return sectorRepository.findOne(sectorId);
