@@ -15,6 +15,7 @@ import org.wells.services.SectorService;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin
 @RestController
 public class SectorController {
     @Autowired

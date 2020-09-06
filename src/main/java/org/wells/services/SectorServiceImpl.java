@@ -117,6 +117,7 @@ public class SectorServiceImpl implements SectorService {
             sector = sectorRepository.findOne(sectorId);
             res.put("sectorId", sector.getSectorId());
             res.put("sectorName", sector.getSectorName());
+            res.put("brief", sector.getBrief());
             res.put("companies", sector.getCompanies());
         }
         catch (NumberFormatException e){
@@ -145,10 +146,43 @@ public class SectorServiceImpl implements SectorService {
             Date end = Date.valueOf(endDate);
 
             Sector sector = sectorRepository.findOne(sectorId);
+            List<Map<String, Object>> companiesPrice = companyRepository.getStockPriceInDateRange(start, end, sectorId);
+            Map<String, Object> highestAvg = new HashMap<>();
+            Map<String, Object> highestHigh = new HashMap<>();
+            Map<String, Object> lowestLow = new HashMap<>();
+
+            for(Map<String, Object> company : companiesPrice) {
+                double tempAvg = -1;
+                if((double)company.get("averagePrice")>tempAvg){
+                    tempAvg = (double)company.get("averagePrice");
+                    highestAvg.put("companyName", company.get("companyName"));
+                    highestAvg.put("stockPrice", company.get("averagePrice"));
+                }
+
+                float tempHigh = -1;
+                if((float)company.get("maxPrice")>tempHigh){
+                    tempHigh = (float)company.get("maxPrice");
+                    highestHigh.put("companyName", company.get("companyName"));
+                    highestHigh.put("stockPrice", company.get("maxPrice"));
+                }
+
+                float tempLow = 999999;
+                if((float)company.get("minPrice")<tempLow){
+                    tempLow = (float)company.get("minPrice");
+                    lowestLow.put("companyName", company.get("companyName"));
+                    lowestLow.put("stockPrice", company.get("minPrice"));
+
+                }
+            }
 
             res.put("sectorId", sector.getSectorId());
             res.put("sectorName", sector.getSectorName());
-            res.put("companies", companyRepository.getStockPriceInDateRange(start, end, sectorId));
+            res.put("brief", sector.getBrief());
+            res.put("noOfCompanies", sector.getCompanies().size());
+            res.put("companies", companiesPrice);
+            res.put("highestAvg", highestAvg);
+            res.put("highestHigh", highestHigh);
+            res.put("lowestLow", lowestLow);
         }
         catch (NumberFormatException e){
             throw new HttpMessageNotReadableException("invalid id format");
@@ -161,10 +195,10 @@ public class SectorServiceImpl implements SectorService {
             params.put("sectorId", id);
             throw new EntityNotFoundException(Sector.class, params);
         }
-        catch (Exception e){
-            System.out.println(e.toString());
-            throw new GenericException(e);
-        }
+//        catch (Exception e){
+//            System.out.println(e.toString());
+//            throw new GenericException(e);
+//        }
 
         return res;
     }
