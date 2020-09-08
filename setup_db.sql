@@ -18,11 +18,12 @@ create table exchange (
 ) ENGINE=InnoDB
 
 create table ipo (
-    ipo_id integer not null,
+    ipo_id integer not null auto_increment,
     num_of_shares varchar(255) not null,
-    open_date datetime(6) not null,
+    open_date date not null,
     price_per_share float not null,
     remarks varchar(255),
+    company_id integer,
     primary key (ipo_id)
 ) ENGINE=InnoDB
 
