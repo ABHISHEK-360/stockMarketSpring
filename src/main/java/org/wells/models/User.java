@@ -14,6 +14,8 @@ public class User {
     @Column(nullable = false)
     private String firstName;
     private String lastName;
+    @Column(nullable = false)
+    private String password;
     @Column(nullable = false, columnDefinition = "ENUM('CONSUMER', 'ADMIN') default 'CONSUMER'")
     @Enumerated(EnumType.STRING)
     private UserTypes userType;
@@ -23,6 +25,14 @@ public class User {
     private String mobile;
     @Column(nullable = false, columnDefinition = "bit default 0")
     private boolean confirmed;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public int getUserId() {
         return userId;
