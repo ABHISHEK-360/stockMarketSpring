@@ -150,23 +150,24 @@ public class SectorServiceImpl implements SectorService {
             Map<String, Object> highestAvg = new HashMap<>();
             Map<String, Object> highestHigh = new HashMap<>();
             Map<String, Object> lowestLow = new HashMap<>();
+            double tempAvg = -1;
+            float tempHigh = -1;
+            float tempLow = Float.MAX_VALUE;
 
             for(Map<String, Object> company : companiesPrice) {
-                double tempAvg = -1;
+
                 if((double)company.get("averagePrice")>tempAvg){
                     tempAvg = (double)company.get("averagePrice");
                     highestAvg.put("companyName", company.get("companyName"));
                     highestAvg.put("stockPrice", company.get("averagePrice"));
                 }
 
-                float tempHigh = -1;
                 if((float)company.get("maxPrice")>tempHigh){
                     tempHigh = (float)company.get("maxPrice");
                     highestHigh.put("companyName", company.get("companyName"));
                     highestHigh.put("stockPrice", company.get("maxPrice"));
                 }
 
-                float tempLow = 999999;
                 if((float)company.get("minPrice")<tempLow){
                     tempLow = (float)company.get("minPrice");
                     lowestLow.put("companyName", company.get("companyName"));
