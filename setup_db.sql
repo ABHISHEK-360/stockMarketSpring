@@ -17,14 +17,15 @@ create table company (
         primary key (exchange_id)
     );
 
-    create table ipo (
-        ipo_id integer not null,
-        num_of_shares varchar(255) not null,
-        open_date datetime(6) not null,
-        price_per_share float not null,
-        remarks varchar(255),
-        primary key (ipo_id)
-    );
+create table ipo (
+    ipo_id integer not null auto_increment,
+    num_of_shares varchar(255) not null,
+    open_date date not null,
+    price_per_share float not null,
+    remarks varchar(255),
+    company_id integer,
+    primary key (ipo_id)
+)
 
     create table sector (
         sector_id integer not null auto_increment,
@@ -79,6 +80,7 @@ create table company (
         add constraint FKjavcfro8axnb5qkgkyxfoobsm
         foreign key (company_id)
         references company (company_id);
+
 
     alter table stock_price
         add constraint FKen591ntptdvye1e5ixitybqnf
