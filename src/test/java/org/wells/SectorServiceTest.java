@@ -22,6 +22,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.wells.models.Sector;
 import org.wells.services.SectorService;
+
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
 
@@ -57,6 +59,7 @@ public class SectorServiceTest {
     }
 
     @Test
+    @Transactional
     public void retrieveSectorCompaniesAvgPrice_whenSectorIdProvided(){
         Map<String, Object> sectorCompaniesPriceTest = sectorService.sectorCompanyAvgPriceOnAnyExchange("1", "2020-08-20", "2020-09-30");
         Assert.assertEquals(1, sectorCompaniesPriceTest.get("sectorId"));
