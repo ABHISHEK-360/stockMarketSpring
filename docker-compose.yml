@@ -1,0 +1,8 @@
+version : "3"
+services:
+  sector:
+    image: abhishek360/stock-market-sector-service:latest
+    ports:
+      - "8080:4001"
+    env_file:
+      - ./.env
